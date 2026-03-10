@@ -1,4 +1,5 @@
 import java.text.NumberFormat;
+import java.time.LocalDate;
 
 /** 
  * MIT License
@@ -81,13 +82,17 @@ public abstract class Produto {
     * @param obj Outro produto a ser comparado
     * @return booleano true/false conforme o parâmetro possua a descrição igual ou não a este produto.
     */
-   @Override
-   public boolean equals(Object obj){
-    Produto outro = (Produto)obj;
-    return this.descricao.toLowerCase().equals(outro.descricao.toLowerCase());
-   }
+    @Override
+    public boolean equals(Object obj){
+     Produto outro = (Produto)obj;
+     return this.descricao.toLowerCase().equals(outro.descricao.toLowerCase());
+    }
 
-
+    /**
+    * Gera uma linha de texto a partir dos dados do produto
+    * @return Uma string no formato "tipo; descrição;preçoDeCusto;margemDeLucro;[dataDeValidade]"
+    */
+    public abstract String gerarDadosTexto();
 
     /**
      * Retorna o valor de venda do produto, considerando seu preço de custo e margem de lucro
@@ -97,7 +102,32 @@ public abstract class Produto {
         return precoCusto * (1+margemLucro);
     }        
     
+    /**
+    * Cria um produto a partir de uma linha de dados em formato texto. A linha de dados deve estar de acordo
+    com a formatação
+    * "tipo; descrição;preçoDeCusto;margemDeLucro;[dataDeValidade]"
+    * ou o funcionamento não será garantido. Os tipos são 1 para produto não perecível e 2 para perecível.
+    * @param linha Linha com os dados do produto a ser criado.
+    * @return Um produto com os dados recebidos
+    */
+    static Produto criarDoTexto(String linha){
+       Produto novoProduto = null;
+      /*Você deve implementar aqui a lógica que separa os dados existentes na String linha, verifica se o
+      produto é do tipo 1 ou 2 e constrói o objeto adequado, com os dados fornecidos de acordo com seu tipo. O
+      objeto construído é retornado pelo método*/
+      
+      String[] partes = linha.split(";");
 
+      //"tipo; descrição;preçoDeCusto;margemDeLucro;[dataDeValidade]"
+      int tipo = Integer.parseInt(partes[0]);
+      String desc = partes[1];
+      double preçoCusto = Double.parseDouble(partes[2]);
+      double margemLucro = Double.parseDouble(partes[3]);
+      if(tipo==1)
+
+       return novoProduto;
+   }
+ 
     /**
      * Descrição em string do produto, contendo sua descrição e o valor de venda.
      *  @return String com o formato:
