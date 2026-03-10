@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class ProdutoPerecivel extends Produto{
@@ -19,11 +20,7 @@ public class ProdutoPerecivel extends Produto{
             }
     }
 
-    @Override
-    public String gerarDadosTexto() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gerarDadosTexto'");
-    }
+    
 
     @Override
     public double valorDeVenda(){
@@ -42,6 +39,26 @@ public class ProdutoPerecivel extends Produto{
     }
 
     
+    /**
+    * Gera uma linha de texto a partir dos dados do produto. Preço e margem de lucro vão formatados com 2
+    casas decimais.
+    * Data de validade vai no formato dd/mm/aaaa 
+    * @return Uma string no formato "2; descrição;preçoDeCusto;margemDeLucro;dataDeValidade"
+    */
+    @Override
+    public String gerarDadosTexto() {
+    //*Você deve implementar aqui a lógica que monta a String com os atributos do objeto ProdutoPerecivel,
+    //respeitando o formato do arquivo de dados. */
+    
+    return String.format("2;%s;%.2f;%.2f;%02d/%02d/%02d",
+        getDescricao(),
+        getPrecoCusto(),
+        getMargemLucro(),
+        dataDeValidade.getDayOfMonth(),
+        dataDeValidade.getMonthValue(),
+        dataDeValidade.getYear()
+    );
 
+}
 
 }
