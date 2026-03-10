@@ -31,6 +31,16 @@ public abstract class Produto {
     private double precoCusto;
     private double margemLucro;
      
+    //getters
+    public String getDescricao(){
+        return descricao;
+    }
+    public double getPrecoCusto(){
+        return precoCusto;
+    }
+    public double getMargemLucro(){
+        return margemLucro;
+    }
     
         
     /**
@@ -123,7 +133,26 @@ public abstract class Produto {
       String desc = partes[1];
       double preçoCusto = Double.parseDouble(partes[2]);
       double margemLucro = Double.parseDouble(partes[3]);
-      if(tipo==1)
+      if(tipo==1){
+
+        novoProduto = new ProdutoNaoPerecivel(desc, preçoCusto,margemLucro);
+
+      }
+      else if(tipo==2){
+
+        String dataString = partes[4];
+        String[] partesData = dataString.split("/");
+        int ano = Integer.parseInt(partesData[0]);
+        int mes = Integer.parseInt(partesData[1]);
+        int dia = Integer.parseInt(partesData[2]);
+
+        LocalDate dataVal = LocalDate.of(ano,mes,dia);
+
+        //cria produto perecivel com data de validade
+        novoProduto = new ProdutoPerecivel(desc, preçoCusto, margemLucro, dataVal);
+        
+      }
+      
 
        return novoProduto;
    }
